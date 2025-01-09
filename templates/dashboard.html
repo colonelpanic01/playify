@@ -1,0 +1,61 @@
+<!-- templates/dashboard.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spotify Playlist Generator - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen p-8">
+    <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-6">Generate Your Playlists</h1>
+        
+        <form action="{{ url_for('fetch_songs') }}" method="post" class="space-y-6">
+            <div>
+                <label class="block mb-2">Group songs by:</label>
+                <select name="group_by" class="w-full p-2 border rounded">
+                    <option value="monthly">Monthly</option>
+                    <option value="seasonal">Seasonal</option>
+                    <option value="yearly">Yearly</option>
+                </select>
+            </div>
+            
+            <div>
+                <label class="block mb-2">Genre Filter (optional):</label>
+                <select name="genre" class="w-full p-2 border rounded">
+                    <option value="">All Genres</option>
+                    {% for genre in genres %}
+                    <option value="{{ genre }}">{{ genre|title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div>
+                <label class="block mb-2">Mood Filter (optional):</label>
+                <select name="mood" class="w-full p-2 border rounded">
+                    <option value="">All Moods</option>
+                    {% for mood in moods %}
+                    <option value="{{ mood }}">{{ mood }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div>
+                <label class="block mb-2">Start Date:</label>
+                <input type="date" name="start_date" required 
+                       class="w-full p-2 border rounded">
+            </div>
+            
+            <div>
+                <label class="block mb-2">End Date:</label>
+                <input type="date" name="end_date" required 
+                       class="w-full p-2 border rounded">
+            </div>
+            
+            <button type="submit" 
+                    class="w-full bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition duration-200">
+                Generate Playlists
+            </button>
+        </form>
+    </div>
+</body>
+</html>
